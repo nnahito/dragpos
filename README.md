@@ -1,5 +1,6 @@
 # DragPos
 簡単に要素を、ドラッグで動かせるようになります。
+参考サイト様のコードを参考に、prototypeを使って、クラス化してみました。
 
 # 使い方
 0. JavaScriptファイルをインクルードします。例：`<script src="dragpos.js"></script>`
