@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <!-- ページタイトル -->
+    <title>ドラッグテスト</title>
+
+    <!-- メタタグエリア -->
+    <meta charset="utf-8">
+
+    <!-- JS読み込み -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="dragpos.js"></script>
+
+    <!-- ページ内CSS -->
+    <style>
+        #foo {
+            width: 150px;
+            height: 150px;
+            margin: 20px;
+            color: #CCC;
+            background: #EFEFEF;
+            border: 3px dotted #DDD;
+            font-size: 2em;
+            font-weight: 900;
+            text-align: center;
+            line-height: 150px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="foo" draggable="true">Move</div>
+
+
+    <script>
+    $(document).ready(function(){
+        // 要素を動かせるようにする
+        var dp = new Dragpos('foo');
+    });
+    </script>
+
+</body>
+
+</html>
