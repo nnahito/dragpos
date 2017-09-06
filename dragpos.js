@@ -1,9 +1,4 @@
 var Dragpos = (function() {
-    // プロパティ定義エリア
-    var panel = ''; // ドラッグさせたいオブジェクトを保存するもの
-    var drag = false; // trueのとき、オブジェクトが移動するというフラグ
-    var mousemove = {};
-
     /**
      * コンストラクタ
      * @param       {Object}    element     ドラッグさせたいオブジェクト
@@ -11,45 +6,37 @@ var Dragpos = (function() {
      */
     function Dragpos(element) {
         // 初期値で与えられた要素をプロパティとして持たせる
-        panel = document.getElementById(element);
+        this.panel = document.getElementById(element);
 
 
         // フラグを（一応）初期化しておく
-        drag = false;
+        this.drag = false;
 
         // アクションをすべてバインド
         document.addEventListener('mousedown', this.mouseDown.bind(this), false);
         document.addEventListener('mouseup', this.mouseUp.bind(this), false);
         document.addEventListener('mousemove', this.mouseMove.bind(this), false);
 
-        console.log(panel);
-
-    }
-
-
-    // クリックされたとき
-    Dragpos.prototype.test = function(){
-        console.log(this.panel);
     }
 
 
     // クリックされたとき
     Dragpos.prototype.mouseDown = function(e){
-        drag = true;
+        this.drag = true;
     }
 
 
 
     // クリックが離されたとき
     Dragpos.prototype.mouseUp = function(e){
-        drag = false;
+        this.drag = false;
     }
 
 
 
     // マウスが移動したとき
     Dragpos.prototype.mouseMove = function(e){
-        if (drag == true){
+        if (this.drag == true){
             this.move(e);
         }
     }
@@ -65,10 +52,10 @@ var Dragpos = (function() {
         var rect = {}; // 四角形の(x, y, w, h)が入る
 
         // 四角形の(x, y, w, h) = (X座標, Y座標, 幅, 高さ)を取得
-        rect.x = panel.offsetLeft;
-        rect.y = panel.offsetTop;
-        rect.w = panel.clientWidth;
-        rect.h = panel.clientHeight;
+        rect.x = this.panel.offsetLeft;
+        rect.y = this.panel.offsetTop;
+        rect.w = this.panel.clientWidth;
+        rect.h = this.panel.clientHeight;
 
         offsetX = rect.w / 2;
         offsetY = rect.h / 2;
@@ -77,9 +64,9 @@ var Dragpos = (function() {
             if (e.pageY > rect.y && e.pageY < rect.y + rect.h) {
                 x = e.pageX - offsetX;
                 y = e.pageY - offsetY;
-                panel.style.position = 'absolute';
-                panel.style.top = y + 'px';
-                panel.style.left = x + 'px';
+                this.panel.style.position = 'absolute';
+                this.panel.style.top = y + 'px';
+                this.panel.style.left = x + 'px';
             }
         }
 
