@@ -22,6 +22,14 @@ var Dragpos = (function() {
         document.addEventListener('mouseup', this.mouseUp.bind(this), false);
         document.addEventListener('mousemove', this.mouseMove.bind(this), false);
 
+        console.log(panel);
+
+    }
+
+
+    // クリックされたとき
+    Dragpos.prototype.test = function(){
+        console.log(this.panel);
     }
 
 

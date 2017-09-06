@@ -14,7 +14,7 @@
 
     <!-- ページ内CSS -->
     <style>
-        #foo {
+        .box {
             width: 150px;
             height: 150px;
             margin: 20px;
@@ -32,13 +32,19 @@
 
 <body>
 
-    <div id="foo" draggable="true">Move</div>
+    <div id="foo" draggable="true" class="box">Move</div>
+    <div id="faa" draggable="true" class="box">Move</div>
 
 
     <script>
     $(document).ready(function(){
         // 要素を動かせるようにする
-        var dp = new Dragpos('foo');
+        var dp1 = new Dragpos('foo');
+        var dp2 = new Dragpos('faa');
+
+        dp1.test();
+        dp2.test();
+
     });
     </script>
 
