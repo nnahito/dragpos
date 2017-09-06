@@ -1,9 +1,4 @@
 var Dragpos = (function() {
-    // プロパティ定義エリア
-    var panel = ''; // ドラッグさせたいオブジェクトを保存するもの
-    var drag = false; // trueのとき、オブジェクトが移動するというフラグ
-    var mousemove = {};
-
     /**
      * コンストラクタ
      * @param       {Object}    element     ドラッグさせたいオブジェクト
@@ -11,11 +6,11 @@ var Dragpos = (function() {
      */
     function Dragpos(element) {
         // 初期値で与えられた要素をプロパティとして持たせる
-        panel = document.getElementById(element);
+        this.panel = document.getElementById(element);
 
 
         // フラグを（一応）初期化しておく
-        drag = false;
+        this.drag = false;
 
         // アクションをすべてバインド
         document.addEventListener('mousedown', this.mouseDown.bind(this), false);
@@ -27,21 +22,31 @@ var Dragpos = (function() {
 
     // クリックされたとき
     Dragpos.prototype.mouseDown = function(e){
-        drag = true;
+        // クリックのターゲットが自分かどうかを確認
+        if ( e.target == this.panel ){
+            // 自分自身なら、ドラッグを許可
+            this.drag = true;
+
+        } else {
+            // 自分でなければ、ドラッグを不許可
+            this.drag = false;
+        }
+
+
     }
 
 
 
     // クリックが離されたとき
     Dragpos.prototype.mouseUp = function(e){
-        drag = false;
+        this.drag = false;
     }
 
 
 
     // マウスが移動したとき
     Dragpos.prototype.mouseMove = function(e){
-        if (drag == true){
+        if (this.drag == true){
             this.move(e);
         }
     }
@@ -57,21 +62,26 @@ var Dragpos = (function() {
         var rect = {}; // 四角形の(x, y, w, h)が入る
 
         // 四角形の(x, y, w, h) = (X座標, Y座標, 幅, 高さ)を取得
-        rect.x = panel.offsetLeft;
-        rect.y = panel.offsetTop;
-        rect.w = panel.clientWidth;
-        rect.h = panel.clientHeight;
+        rect.x = this.panel.offsetLeft;
+        rect.y = this.panel.offsetTop;
+        rect.w = this.panel.clientWidth;
+        rect.h = this.panel.clientHeight;
 
+        // 四角形の中央を求める
         offsetX = rect.w / 2;
         offsetY = rect.h / 2;
 
+        // マウスの位置がドラッグを行いたい要素の中なら
         if (e.pageX > rect.x && e.pageX < rect.x + rect.w) {
             if (e.pageY > rect.y && e.pageY < rect.y + rect.h) {
+                // 要素をマウスに付い順させて動かす
                 x = e.pageX - offsetX;
                 y = e.pageY - offsetY;
-                panel.style.position = 'absolute';
-                panel.style.top = y + 'px';
-                panel.style.left = x + 'px';
+
+                // 要素のスタイルと場所を変更
+                this.panel.style.position = 'absolute';
+                this.panel.style.top = y + 'px';
+                this.panel.style.left = x + 'px';
             }
         }
 
