@@ -22,7 +22,17 @@ var Dragpos = (function() {
 
     // クリックされたとき
     Dragpos.prototype.mouseDown = function(e){
-        this.drag = true;
+        // クリックのターゲットが自分かどうかを確認
+        if ( e.target == this.panel ){
+            // 自分自身なら、ドラッグを許可
+            this.drag = true;
+
+        } else {
+            // 自分でなければ、ドラッグを不許可
+            this.drag = false;
+        }
+
+
     }
 
 
@@ -57,13 +67,18 @@ var Dragpos = (function() {
         rect.w = this.panel.clientWidth;
         rect.h = this.panel.clientHeight;
 
+        // 四角形の中央を求める
         offsetX = rect.w / 2;
         offsetY = rect.h / 2;
 
+        // マウスの位置がドラッグを行いたい要素の中なら
         if (e.pageX > rect.x && e.pageX < rect.x + rect.w) {
             if (e.pageY > rect.y && e.pageY < rect.y + rect.h) {
+                // 要素をマウスに付い順させて動かす
                 x = e.pageX - offsetX;
                 y = e.pageY - offsetY;
+
+                // 要素のスタイルと場所を変更
                 this.panel.style.position = 'absolute';
                 this.panel.style.top = y + 'px';
                 this.panel.style.left = x + 'px';
