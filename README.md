@@ -8,6 +8,10 @@
 3. 上記までで、ID`foo`を持つ要素をドラッグで動かせるようになります。
 
 
+# 参考（special thanks）
+- http://www.findxfine.com/programming/javascript/995556137.html
+
+
 # DragPos
 You can create drag elements easy.
 
